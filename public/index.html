@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EcoPlus — AI-powered sustainability intelligence platform.">
+  <title>EcoPlus — Sustainability Intelligence</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">E</div>
+        <div><strong>EcoPlus</strong><span>Sustainability OS</span></div>
+      </div>
+      <nav>
+        <button class="nav-item active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-item" data-page="blocks"><span>▦</span> Blocks</button>
+        <button class="nav-item" data-page="resources"><span>◌</span> Resources</button>
+        <button class="nav-item" data-page="insights"><span>✦</span> AI Insights</button>
+        <button class="nav-item" data-page="impact"><span>↗</span> Impact</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
+        <div class="profile-mini">
+          <div class="avatar" id="avatar">E</div>
+          <div><strong id="sideInstitute">Your Institute</strong><span>Administrator</span></div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-brand"><div class="brand-mark">E</div><strong>EcoPlus</strong></div>
+        <div class="topbar-actions">
+          <span class="live-dot"></span><span>Live dashboard</span>
+          <button class="icon-btn" id="resetBtn" title="Reset demo data">↻</button>
+        </div>
+      </header>
+
+      <section id="dashboard" class="page active-page">
+        <div class="hero-row">
+          <div>
+            <p class="eyebrow">SUSTAINABILITY INTELLIGENCE</p>
+            <h1 id="welcomeTitle">Good evening.</h1>
+            <p class="muted">Enter your institute and block usage manually, then let EcoPlus calculate your sustainability picture.</p>
+          </div>
+          <button class="primary-btn" id="setupBtn">＋ Manage institute</button>
+        </div>
+
+        <div class="setup-card hidden" id="setupCard">
+          <div>
+            <p class="eyebrow">INSTITUTE SETUP</p>
+            <h2>Tell EcoPlus about your campus</h2>
+            <p class="muted">Enter the institute name and the number and names of your blocks. You can edit these anytime.</p>
+          </div>
+          <form id="setupForm">
+            <label>Institute name<input id="instituteInput" required placeholder="e.g. PSNA College of Engineering"></label>
+            <label>Number of blocks<input id="blockCountInput" required type="number" min="1" max="50" placeholder="e.g. 5"></label>
+            <div id="blockNames"></div>
+            <button class="primary-btn" type="submit">Save institute setup</button>
+          </form>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-card"><span>Eco Score</span><strong id="ecoScore">78</strong><small>/ 100</small><div class="mini-progress"><i id="ecoProgress"></i></div><em id="scoreNote">Good baseline</em></div>
+          <div class="stat-card"><span>Energy</span><strong id="energy">8,420</strong><small> kWh</small><em class="down">↓ 8.4% vs last week</em></div>
+          <div class="stat-card"><span>Water</span><strong id="water">12,300</strong><small> L</small><em class="down">↓ 11.2% vs last week</em></div>
+          <div class="stat-card"><span>Waste</span><strong id="waste">184</strong><small> kg</small><em class="down">↓ 6.8% vs last week</em></div>
+        </div>
+
+        <div class="content-grid">
+          <div class="panel chart-panel">
+            <div class="panel-head"><div><h2>Resource trend</h2><p>Estimated weekly consumption</p></div><select id="metricSelect"><option value="energy">Energy</option><option value="water">Water</option><option value="waste">Waste</option></select></div>
+            <div class="chart" id="chart"></div>
+            <div class="chart-labels"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><div><h2>AI insight</h2><p>Highest-impact finding</p></div><span class="ai-badge">AI</span></div>
+            <div class="insight-card">
+              <div class="insight-icon">⚡</div>
+              <h3 id="insightTitle">Lab Block is using more energy than expected</h3>
+              <p id="insightText">Consumption is 31% above its baseline during low-occupancy hours. EcoPlus recommends an automatic shutdown schedule after 7 PM.</p>
+              <div class="impact-pill">Potential saving · <b>420 kWh/month</b></div>
+              <button class="text-btn" data-page="insights">View AI analysis →</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-grid lower">
+          <div class="panel">
+            <div class="panel-head"><div><h2>Block performance</h2><p>Current sustainability score</p></div><button class="text-btn" data-page="blocks">Manage →</button></div>
+            <div id="blockRows" class="block-list"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><div><h2>Today's actions</h2><p>Recommended next steps</p></div></div>
+            <div class="action-list">
+              <div><span class="action-num">01</span><div><b>Optimize after-hours energy</b><small>High impact · 420 kWh/month</small></div><span>→</span></div>
+              <div><span class="action-num">02</span><div><b>Review water usage in Block B</b><small>Medium impact · 4,200 L/month</small></div><span>→</span></div>
+              <div><span class="action-num">03</span><div><b>Reduce Friday food preparation</b><small>Medium impact · 85 kg/month</small></div><span>→</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="blocks" class="page">
+        <div class="page-head"><div><p class="eyebrow">CAMPUS CONFIGURATION</p><h1>Your blocks</h1><p class="muted">Enter and update energy, water, and waste usage for each block.</p></div><button class="primary-btn" id="addBlockBtn">＋ Add block</button></div>
+        <div class="institute-banner"><div class="avatar big" id="bannerAvatar">E</div><div><span>INSTITUTE</span><h2 id="bannerInstitute">Your Institute</h2></div><button class="secondary-btn" id="editInstituteBtn">Edit setup</button></div>
+        <div id="blocksGrid" class="blocks-grid"></div>
+      </section>
+
+      <section id="resources" class="page">
+        <div class="page-head"><div><p class="eyebrow">RESOURCE MONITORING</p><h1>Resource intelligence</h1><p class="muted">Track the key sustainability indicators across your campus.</p></div></div>
+        <div class="resource-grid">
+          <div class="resource-card"><span class="resource-icon">⚡</span><p>Electricity</p><strong>8,420 kWh</strong><em>↓ 8.4%</em><div class="bar"><i style="width:72%"></i></div></div>
+          <div class="resource-card"><span class="resource-icon">💧</span><p>Water</p><strong>12,300 L</strong><em>↓ 11.2%</em><div class="bar"><i style="width:61%"></i></div></div>
+          <div class="resource-card"><span class="resource-icon">🗑</span><p>Waste</p><strong>184 kg</strong><em>↓ 6.8%</em><div class="bar"><i style="width:46%"></i></div></div>
+          <div class="resource-card"><span class="resource-icon">🍱</span><p>Food waste</p><strong>126 kg</strong><em>↑ 2.1%</em><div class="bar"><i class="warning" style="width:58%"></i></div></div>
+        </div>
+        <div class="panel table-panel">
+          <div class="panel-head"><div><h2>Block resource snapshot</h2><p>Illustrative data for the hackathon prototype</p></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Block</th><th>Energy</th><th>Water</th><th>Waste</th><th>Status</th></tr></thead><tbody id="resourceTable"></tbody></table></div>
+        </div>
+      </section>
+
+      <section id="insights" class="page">
+        <div class="page-head"><div><p class="eyebrow">AI SUSTAINABILITY COPILOT</p><h1>Actionable insights</h1><p class="muted">Convert resource data into practical decisions.</p></div></div>
+        <div class="insight-grid">
+          <article class="big-insight"><span class="priority high">HIGH IMPACT</span><h2>Optimize after-hours lab energy</h2><p>Lab Block shows a recurring usage spike after normal occupancy hours. The pattern suggests equipment and HVAC are remaining active.</p><div class="recommendation"><b>Recommendation</b><span>Schedule automatic shutdown at 7:00 PM and add a 30-minute pre-shutdown warning.</span></div><div class="saving"><strong>420 kWh</strong><small>estimated monthly saving</small></div></article>
+          <article class="big-insight"><span class="priority medium">MEDIUM IMPACT</span><h2>Review Block B water usage</h2><p>Water consumption is higher than comparable blocks during afternoon hours.</p><div class="recommendation"><b>Recommendation</b><span>Inspect high-use fixtures and compare weekday afternoon consumption.</span></div><div class="saving"><strong>4,200 L</strong><small>potential monthly saving</small></div></article>
+          <article class="big-insight"><span class="priority medium">MEDIUM IMPACT</span><h2>Reduce Friday food preparation</h2><p>Dining data indicates Friday lunch creates a repeatable waste peak.</p><div class="recommendation"><b>Recommendation</b><span>Reduce preparation volume by 10–15% and monitor plate-return waste.</span></div><div class="saving"><strong>85 kg</strong><small>potential monthly reduction</small></div></article>
+        </div>
+      </section>
+
+      <section id="impact" class="page">
+        <div class="page-head"><div><p class="eyebrow">MEASURABLE OUTCOMES</p><h1>Impact center</h1><p class="muted">Translate sustainability improvements into measurable outcomes.</p></div></div>
+        <div class="impact-hero"><div><span>THIS MONTH</span><h2>Making sustainability measurable.</h2><p>EcoPlus estimates the impact of your recommended actions using the resource patterns in your dashboard.</p></div><div class="eco-ring"><strong>78</strong><span>Eco Score</span></div></div>
+        <div class="impact-grid">
+          <div><span>⚡</span><strong>4,280 kWh</strong><small>energy saved</small></div>
+          <div><span>💧</span><strong>18,400 L</strong><small>water saved</small></div>
+          <div><span>♻</span><strong>620 kg</strong><small>waste reduced</small></div>
+          <div><span>🌍</span><strong>2.4 t</strong><small>CO₂ avoided</small></div>
+        </div>
+        <div class="panel"><div class="panel-head"><div><h2>Green champions</h2><p>Friendly sustainability competition</p></div></div><div id="leaderboard" class="leaderboard"></div></div>
+      </section>
+
+      <section id="settings" class="page">
+        <div class="page-head"><div><p class="eyebrow">PREFERENCES</p><h1>Settings</h1><p class="muted">Configure your EcoPlus workspace.</p></div></div>
+        <div class="settings-card panel">
+          <label>Institute name<input id="settingsInstitute"></label>
+          <label>Administrator name<input id="adminName" placeholder="Administrator"></label>
+          <button class="primary-btn" id="saveSettings">Save changes</button>
+          <button class="danger-btn" id="clearData">Clear saved data</button>
+        </div>
+      </section>
+    </main>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="./app.js"></script>
+
+<footer class="site-footer">
+  <span>Design &amp; Developed By <strong>Theo</strong></span>
+</footer>
+
+</body>
+</html>
