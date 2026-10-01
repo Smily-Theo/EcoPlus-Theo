@@ -20,6 +20,7 @@
         <button class="nav-item" data-page="resources"><span>◌</span> Resources</button>
         <button class="nav-item" data-page="insights"><span>✦</span> AI Insights</button>
         <button class="nav-item" data-page="impact"><span>↗</span> Impact</button>
+        <button class="nav-item" data-page="reports"><span>▤</span> Reports</button>
       </nav>
       <div class="sidebar-bottom">
         <button class="nav-item" data-page="settings"><span>⚙</span> Settings</button>
@@ -145,7 +146,86 @@
         <div class="panel"><div class="panel-head"><div><h2>Green champions</h2><p>Friendly sustainability competition</p></div></div><div id="leaderboard" class="leaderboard"></div></div>
       </section>
 
-      <section id="settings" class="page">
+      
+      <section id="reports" class="page">
+        <div class="page-head">
+          <div>
+            <p class="eyebrow">USAGE REPORTS</p>
+            <h1>Generate usage reports</h1>
+            <p class="muted">Create daily, weekly, or monthly sustainability reports from your manually entered block data.</p>
+          </div>
+        </div>
+
+        <div class="report-controls panel">
+          <div class="report-control">
+            <label>Report period
+              <select id="reportPeriod">
+                <option value="daily">Daily</option>
+                <option value="weekly" selected>Weekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </label>
+          </div>
+          <div class="report-control">
+            <label>Report date
+              <input id="reportDate" type="date">
+            </label>
+          </div>
+          <button class="primary-btn" id="generateReportBtn">Generate report</button>
+          <button class="secondary-btn" id="printReportBtn">Print / Save PDF</button>
+        </div>
+
+        <div id="reportEmpty" class="report-empty panel">
+          <div class="report-empty-icon">▤</div>
+          <h2>Your report will appear here</h2>
+          <p>Choose Daily, Weekly, or Monthly and click Generate report.</p>
+        </div>
+
+        <div id="reportResult" class="report-result hidden">
+          <div class="report-heading panel">
+            <div>
+              <p class="eyebrow" id="reportLabel">WEEKLY REPORT</p>
+              <h2 id="reportTitle">Sustainability Usage Report</h2>
+              <p class="muted" id="reportMeta"></p>
+            </div>
+            <div class="report-score">
+              <span>Eco Score</span>
+              <strong id="reportScore">0</strong>
+              <small>/ 100</small>
+            </div>
+          </div>
+
+          <div class="report-stat-grid">
+            <div class="report-stat"><span>⚡ Energy</span><strong id="reportEnergy">0</strong><small>kWh</small></div>
+            <div class="report-stat"><span>💧 Water</span><strong id="reportWater">0</strong><small>L</small></div>
+            <div class="report-stat"><span>♻ Waste</span><strong id="reportWaste">0</strong><small>kg</small></div>
+            <div class="report-stat"><span>🌍 CO₂ estimate</span><strong id="reportCarbon">0</strong><small>kg CO₂e</small></div>
+          </div>
+
+          <div class="content-grid report-grid">
+            <div class="panel">
+              <div class="panel-head"><div><h2>Block usage</h2><p>Usage entered by the administrator</p></div></div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>Block</th><th>Energy</th><th>Water</th><th>Waste</th><th>Eco Score</th></tr></thead>
+                  <tbody id="reportTable"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><div><h2>Report summary</h2><p>Generated from current dashboard data</p></div></div>
+              <div class="report-summary" id="reportSummary"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head"><div><h2>Recommended actions</h2><p>Use these actions to improve the next reporting period.</p></div></div>
+            <div class="report-actions" id="reportActions"></div>
+          </div>
+        </div>
+      </section>
+
+<section id="settings" class="page">
         <div class="page-head"><div><p class="eyebrow">PREFERENCES</p><h1>Settings</h1><p class="muted">Configure your EcoPlus workspace.</p></div></div>
         <div class="settings-card panel">
           <label>Institute name<input id="settingsInstitute"></label>

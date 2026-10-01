@@ -101,3 +101,76 @@ $("#clearData").onclick=()=>{if(confirm("Clear EcoPlus saved data and restore th
 $("#resetBtn").onclick=()=>{state=JSON.parse(JSON.stringify(demo));save();renderAll();toast("Demo data restored")};
 function renderAll(){recalculateScores();renderIdentity();renderBlocks();updateDashboardTotals();renderChart($("#metricSelect")?.value||"energy")}
 renderAll();
+
+
+/* EcoPlus Reports */
+function reportDateRange(period, dateValue){
+  const base = dateValue ? new Date(dateValue + "T12:00:00") : new Date();
+  let start = new Date(base), end = new Date(base);
+  if(period === "daily"){
+    start = new Date(base); end = new Date(base);
+  } else if(period === "weekly"){
+    const day = base.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    start = new Date(base); start.setDate(base.getDate()+diff);
+    end = new Date(start); end.setDate(start.getDate()+6);
+  } else {
+    start = new Date(base.getFullYear(), base.getMonth(), 1, 12);
+    end = new Date(base.getFullYear(), base.getMonth()+1, 0, 12);
+  }
+  return {start,end};
+}
+function fmtDate(d){ return d.toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"}); }
+function periodMultiplier(period){ return period==="daily"?1:period==="weekly"?7:30; }
+function generateReport(){
+  const period=$("#reportPeriod").value;
+  const date=$("#reportDate").value || new Date().toISOString().slice(0,10);
+  const {start,end}=reportDateRange(period,date);
+  const multiplier=periodMultiplier(period);
+  const energy=state.blocks.reduce((s,b)=>s+Number(b.energy||0),0)*multiplier;
+  const water=state.blocks.reduce((s,b)=>s+Number(b.water||0),0)*multiplier;
+  const waste=state.blocks.reduce((s,b)=>s+Number(b.waste||0),0)*multiplier;
+  const score=Math.round(state.blocks.reduce((s,b)=>s+Number(b.score||0),0)/Math.max(1,state.blocks.length));
+  const carbon=energy*0.0007 + waste*0.35;
+  const label=period.toUpperCase()+" REPORT";
+
+  $("#reportEmpty").classList.add("hidden");
+  $("#reportResult").classList.remove("hidden");
+  $("#reportLabel").textContent=label;
+  $("#reportTitle").textContent=`${state.institute} — ${period.charAt(0).toUpperCase()+period.slice(1)} Usage Report`;
+  $("#reportMeta").textContent=`${fmtDate(start)} – ${fmtDate(end)} · Generated ${new Date().toLocaleString("en-IN")}`;
+  $("#reportScore").textContent=score;
+  $("#reportEnergy").textContent=format(energy);
+  $("#reportWater").textContent=format(water);
+  $("#reportWaste").textContent=format(waste);
+  $("#reportCarbon").textContent=format(carbon);
+
+  $("#reportTable").innerHTML=state.blocks.map(b=>{
+    const e=Number(b.energy||0)*multiplier, w=Number(b.water||0)*multiplier, wa=Number(b.waste||0)*multiplier;
+    return `<tr><td><b>${b.name}</b></td><td>${format(e)} kWh</td><td>${format(w)} L</td><td>${format(wa)} kg</td><td>${b.score}/100</td></tr>`;
+  }).join("");
+
+  const avgEnergy=energy/Math.max(1,state.blocks.length);
+  const highest=state.blocks.reduce((a,b)=>Number(b.energy||0)>Number(a.energy||0)?b:a,state.blocks[0]);
+  const highestWater=state.blocks.reduce((a,b)=>Number(b.water||0)>Number(a.water||0)?b:a,state.blocks[0]);
+  $("#reportSummary").innerHTML=`
+    <div><span>Total monitored blocks</span><strong>${state.blocks.length}</strong></div>
+    <div><span>Highest energy usage</span><strong>${highest?highest.name:"—"}</strong><small>${highest?format(Number(highest.energy)*multiplier):0} kWh</small></div>
+    <div><span>Highest water usage</span><strong>${highestWater?highestWater.name:"—"}</strong><small>${highestWater?format(Number(highestWater.water)*multiplier):0} L</small></div>
+    <div><span>Average energy / block</span><strong>${format(avgEnergy)} kWh</strong></div>
+  `;
+
+  const actions=[];
+  if(highest) actions.push(`Review after-hours energy usage in ${highest.name}.`);
+  if(highestWater) actions.push(`Inspect water fixtures and usage patterns in ${highestWater.name}.`);
+  actions.push("Compare this report with the previous reporting period to identify trends.");
+  $("#reportActions").innerHTML=actions.map((a,i)=>`<div><span>${String(i+1).padStart(2,"0")}</span><p>${a}</p></div>`).join("");
+  window.lastReport={period,date,start,end,energy,water,waste,carbon,score};
+  toast(`${period.charAt(0).toUpperCase()+period.slice(1)} report generated`);
+}
+$("#reportDate").value=new Date().toISOString().slice(0,10);
+$("#generateReportBtn").addEventListener("click",generateReport);
+$("#printReportBtn").addEventListener("click",()=>{
+  if(!window.lastReport) generateReport();
+  setTimeout(()=>window.print(),100);
+});

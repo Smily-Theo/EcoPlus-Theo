@@ -54,3 +54,7 @@ The resource figures and AI recommendations are demo/simulated data. They are de
 
 ## Responsive UI
 The dashboard is optimized for desktop, tablet, and mobile screens. On mobile, navigation becomes a bottom navigation bar and forms/cards adapt to narrow widths.
+
+## Reports
+
+EcoPlus includes Daily, Weekly, and Monthly usage report generation based on the manually entered block usage. Reports can be printed or saved as PDF through the browser print dialog.
