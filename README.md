@@ -51,3 +51,6 @@ No API key is required for this prototype.
 ## Important prototype note
 
 The resource figures and AI recommendations are demo/simulated data. They are designed for a hackathon prototype. A production version can connect IoT/sensor feeds, a database, authentication, and an AI API through server-side functions.
+
+## Responsive UI
+The dashboard is optimized for desktop, tablet, and mobile screens. On mobile, navigation becomes a bottom navigation bar and forms/cards adapt to narrow widths.

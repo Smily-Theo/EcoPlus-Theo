@@ -22,3 +22,73 @@
 .save-block-btn{border:0;background:#e8f4eb;color:#28764a;border-radius:7px;padding:8px 10px;font-size:9px;font-weight:800;width:100%;margin-bottom:8px}
 .save-block-btn:hover{background:#d9eddf}
 @media(max-width:760px){.manual-grid{grid-template-columns:1fr}}
+
+/* Mobile-first stability and responsive polish */
+html{overflow-x:hidden}body{min-width:0;overflow-x:hidden}.page{width:100%;min-width:0}.panel,.stat-card,.resource-card,.block-card,.big-insight,.settings-card{min-width:0}.table-wrap{max-width:100%}.table-wrap table{min-width:620px}.block-card input{box-sizing:border-box}.chart{min-width:0}.chart-labels{gap:8px;overflow:hidden}.chart-labels span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:center;flex:1}
+@media (max-width: 760px){
+  body{padding-bottom:76px}
+  .sidebar{position:fixed;left:0;right:0;bottom:0;top:auto;width:100%;height:68px;padding:5px 8px;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-right:0;border-top:1px solid var(--line);box-shadow:0 -8px 25px rgba(29,55,39,.08);z-index:50;display:flex;flex-direction:row;align-items:stretch}
+  .brand{display:none}
+  .sidebar nav{display:flex;flex:1;min-width:0;gap:2px;align-items:stretch;overflow-x:auto;scrollbar-width:none}
+  .sidebar nav::-webkit-scrollbar{display:none}
+  .nav-item{font-size:9px!important;line-height:1.1;flex:1 0 58px;min-width:58px;max-width:90px;justify-content:center;align-items:center;flex-direction:column;gap:3px;padding:5px 3px;border-radius:8px;color:#657168}
+  .nav-item span{font-size:16px!important;width:auto;line-height:1}
+  .sidebar-bottom{display:flex;align-items:stretch;margin:0;padding:0;border:0;width:58px;flex:0 0 58px}
+  .sidebar-bottom .nav-item{width:100%}
+  .profile-mini{display:none}
+  .main{margin-left:0;width:100%;min-width:0}
+  .topbar{height:58px;padding:0 14px;position:sticky;top:0}
+  .topbar-actions{font-size:10px}
+  .topbar-actions .icon-btn{margin-left:6px}
+  .page{padding:22px 14px 34px;max-width:none}
+  .hero-row,.page-head{gap:14px;margin-bottom:20px}
+  .hero-row h1,.page-head h1{font-size:26px;line-height:1.1}
+  .primary-btn,.secondary-btn{width:auto;max-width:100%;white-space:nowrap}
+  .hero-row .primary-btn,.page-head .primary-btn{width:100%}
+  .stat-grid{grid-template-columns:1fr 1fr;gap:9px}
+  .stat-card{padding:14px}
+  .stat-card strong{font-size:22px}
+  .stat-card small{font-size:10px}
+  .stat-card em{font-size:9px;line-height:1.35}
+  .content-grid,.content-grid.lower{grid-template-columns:1fr;gap:12px}
+  .panel{padding:15px;border-radius:12px}
+  .panel-head{align-items:flex-start;margin-bottom:14px}
+  .panel-head h2{font-size:14px}
+  .chart-panel{overflow:hidden}
+  .chart{height:165px;gap:5px;padding:12px 2px 0}
+  .chart-labels{font-size:8px}
+  .setup-card{grid-template-columns:1fr;gap:16px;padding:15px;margin-bottom:15px}
+  .setup-card h2{font-size:18px}
+  .setup-card form{gap:10px}
+  .setup-card input,.settings-card input{font-size:14px;padding:10px}
+  .blocks-grid,.resource-grid,.insight-grid,.impact-grid{grid-template-columns:1fr;gap:11px}
+  .block-card{padding:15px}
+  .manual-grid{grid-template-columns:1fr 1fr 1fr;gap:6px}
+  .manual-grid label{font-size:8px}
+  .manual-grid input{font-size:12px;padding:9px 6px}
+  .save-block-btn{font-size:10px;padding:9px}
+  .institute-banner{padding:14px;gap:10px;margin-bottom:12px}
+  .institute-banner h2{font-size:14px;max-width:210px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .institute-banner button{margin-left:56px;width:calc(100% - 56px)}
+  .big-insight{padding:17px}
+  .big-insight>p{min-height:0}
+  .impact-hero{padding:19px;flex-direction:row;align-items:center;gap:12px}
+  .impact-hero h2{font-size:20px;line-height:1.2}
+  .impact-hero p{font-size:10px}
+  .eco-ring{width:78px;height:78px;border-width:6px}
+  .eco-ring strong{font-size:22px}
+  .impact-grid>div{padding:15px}
+  .leader{grid-template-columns:28px 1fr 70px}
+  .settings-card{padding:17px}
+  .settings-card .danger-btn{margin-left:0}
+  .site-footer{padding:24px 14px 8px;font-size:10px}
+}
+@media (max-width: 390px){
+  .page{padding-left:11px;padding-right:11px}
+  .stat-card{padding:12px}
+  .stat-card strong{font-size:19px}
+  .manual-grid{grid-template-columns:1fr}
+  .impact-hero{align-items:flex-start}
+  .eco-ring{width:70px;height:70px}
+  .nav-item{flex-basis:54px;min-width:54px}
+}
